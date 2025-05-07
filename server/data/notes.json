@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "text": "omwer",
+    "date": "2024-05-07T12:00:00.000Z",
+    "tags": [
+      "example"
+    ],
+    "favorite": true,
+    "pinned": true
+  },
+  {
+    "id": 2,
+    "text": "woemkfwf",
+    "date": "2024-05-07T12:10:00.000Z",
+    "tags": [],
+    "favorite": false,
+    "pinned": false
+  }
+]

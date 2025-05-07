@@ -1,0 +1,51 @@
+.add-form {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 22px;
+	background: #f6f7fb;
+	border-radius: 12px;
+	padding: 10px 0;
+}
+.add-form input {
+	flex: 1;
+	padding: 10px 14px;
+	border: 1.5px solid #a7e9c7;
+	border-radius: 8px;
+	font-size: 1rem;
+	outline: none;
+	background: #fff;
+	color: #23243a;
+	transition: border 0.2s, background 0.2s;
+	box-shadow: 0 1px 6px rgba(120, 140, 180, 0.06);
+}
+.add-form input:focus {
+	border-color: #7b9acc;
+	background: #e3d7ff;
+}
+.add-form button {
+	background: linear-gradient(90deg, #a7e9c7 0%, #b8b8ff 100%);
+	color: #23243a;
+	border: none;
+	border-radius: 8px;
+	padding: 10px 22px;
+	font-size: 1rem;
+	cursor: pointer;
+	font-weight: bold;
+	box-shadow: 0 2px 8px rgba(120, 140, 180, 0.07);
+	transition: background 0.2s, color 0.2s;
+}
+.add-form button:hover {
+	background: linear-gradient(90deg, #b8b8ff 0%, #a7e9c7 100%);
+}
+.dark .add-form {
+	background: #2d2e4a;
+}
+.dark .add-form input {
+	background: #23243a;
+	color: #e6e6e6;
+	border-color: #b8b8ff;
+}
+.dark .add-form button {
+	background: linear-gradient(90deg, #b8b8ff 0%, #a7e9c7 100%);
+	color: #23243a;
+}

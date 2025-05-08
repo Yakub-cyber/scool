@@ -1,27 +1,65 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Build & Test Monorepo
 
 on:
-  # Runs on pushes targeting the default branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- SERVER ---
+      - name: Install server dependencies
+        run: npm ci
+        working-directory: ./server
+
+      - name: Lint server (optional)
+        run: npm run lint || true
+        working-directory: ./server
+
+      - name: Test server (optional)
+        run: npm test || true
+        working-directory: ./server
+
+      # --- CLIENT ---
+      - name: Install client dependencies
+        run: npm ci
+        working-directory: ./client
+
+      - name: Lint client (optional)
+        run: npm run lint || true
+        working-directory: ./client
+
+      - name: Test client (optional)
+        run: npm test || true
+        working-directory: ./client
+
+      - name: Build client
+        run: npm run build
+        working-directory: ./client
+
+        name: Deploy static content to Pages
+
+on:
   push:
     branches: ['main']
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
 concurrency:
   group: 'pages'
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
   deploy:
     environment:
       name: github-pages
@@ -30,22 +68,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: 'npm'
+
       - name: Install dependencies
         run: npm ci
+        working-directory: ./client
+
       - name: Build
         run: npm run build
+        working-directory: ./client
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload dist folder
-          path: './dist'
+          path: './client/dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
